@@ -34,7 +34,7 @@ export const Footer: React.FC = () => {
         <button
           disabled={step === 0}
           onClick={decrement}
-          className="btn-primary btn"
+          className="btn-secondary btn"
         >
           Previous
         </button>
@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
         <button
           disabled={disabled}
           onClick={increment}
-          className={`btn-primary btn ${
+          className={`btn-secondary btn ${
             !disabled ? "animate-bounce" : ""
           } hover:animate-none`}
         >

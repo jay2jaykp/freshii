@@ -22,6 +22,7 @@ export const Navbar: React.FC = () => {
                 <a
                   onClick={() => {
                     setTheme(e);
+                    localStorage.setItem("theme", e);
                   }}
                 >
                   {e}

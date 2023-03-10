@@ -6,12 +6,13 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import { Navbar } from "~/components/Navbar";
 import { Footer } from "~/components/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StudentInformation } from "~/components/StudentInformation";
 import { MealSelection } from "~/components/MealSelection";
 import { OrderConfirmation } from "~/components/OrderConfirmation";
 import { Payment } from "~/components/Payment";
 import { useMyStore, useThemeStore } from "../state/index";
+import { Themes } from "../data/index";
 
 export const steps = [
   "Student Information",
@@ -29,7 +30,7 @@ const Home: NextPage = () => {
     decrement: state.decrement,
   }));
 
-  const { theme } = useThemeStore();
+  const { theme, setTheme } = useThemeStore();
 
   const PageSwitcher: React.FC<{ stepValue: number }> = ({ stepValue }) => {
     return (
@@ -48,6 +49,13 @@ const Home: NextPage = () => {
       </>
     );
   };
+
+  useEffect(() => {
+    const existingTheme = localStorage.getItem("theme");
+    if (existingTheme && (Themes as any as string[]).includes(existingTheme)) {
+      setTheme(existingTheme as any as (typeof Themes)[number]);
+    }
+  }, []);
   return (
     <>
       <Head>
