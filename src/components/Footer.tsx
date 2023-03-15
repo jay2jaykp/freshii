@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import { steps } from "~/pages";
+import React from "react";
 import {
   useStepStore,
   useNextButtonDisableStore,
   useMealSelectionStore,
 } from "../state/index";
-import { useEffect } from "react";
 
 export const Footer: React.FC = () => {
   const { step, increment, decrement } = useStepStore((state) => state);

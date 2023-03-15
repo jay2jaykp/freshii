@@ -75,35 +75,35 @@ export const proteins = [
   {
     id: 1,
     name: "chicken",
-    price: 2.79,
+    price: 2.75,
     image:
       "https://orders.freshii.com/_next/image?url=https%3A%2F%2Ffreimages.freshii.com%2FItems%2Fmodifiers%2FProteins%2F400x400__0001_proteins_chicken.png&w=3840&q=50",
   },
   {
-    id: 2.79,
+    id: 2.75,
     name: "steak",
-    price: 2.79,
+    price: 2.75,
     image:
       "https://orders.freshii.com/_next/image?url=https%3A%2F%2Ffreimages.freshii.com%2FItems%2Fmodifiers%2FProteins%2F400x400__0003_proteins_steak.png&w=3840&q=50",
   },
   {
     id: 3,
     name: "tofu",
-    price: 2.79,
+    price: 2.75,
     image:
       "https://orders.freshii.com/_next/image?url=https%3A%2F%2Ffreimages.freshii.com%2FItems%2Fmodifiers%2FProteins%2F400x400__0002_proteins_tofu.png&w=3840&q=50",
   },
   {
     id: 4,
     name: "falafel",
-    price: 2.79,
+    price: 2.75,
     image:
       "https://orders.freshii.com/_next/image?url=https%3A%2F%2Ffreimages.freshii.com%2FItems%2Fmodifiers%2FProteins%2F400x400__0004_proteins_falafel.png&w=3840&q=50",
   },
   {
     id: 5,
     name: "hard boiled eggs",
-    price: 2.79,
+    price: 2.75,
     image:
       "https://orders.freshii.com/_next/image?url=https%3A%2F%2Ffreimages.freshii.com%2FItems%2Fmodifiers%2FProteins%2F400x400__0005_proteins_hard_boiled_egg.png&w=3840&q=50",
   },
