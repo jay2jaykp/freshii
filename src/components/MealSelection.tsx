@@ -47,8 +47,10 @@ export const MealSelection: React.FC = () => {
             }`}
           >
             <div className="flex flex-wrap items-center">
-              <p className="p-2 text-xl">{each.date.toDateString()} </p>
-              <p className="bg-error text-secondary">
+              <p className="p-2 text-xl text-primary">
+                {each.date.toDateString()}{" "}
+              </p>
+              <p className="bg-error text-white">
                 {(each.dish === null || each.protein === null) &&
                 each.skip === false
                   ? "Please make the selection"
