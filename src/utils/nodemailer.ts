@@ -6,12 +6,14 @@ import { env } from "~/env.mjs";
 
 // async..await is not allowed in global scope, must use a wrapper
 export const nodeMailer = async ({
+  name,
   buyersEmail,
   total,
   orderNumber,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   orders,
 }: {
+  name: string;
   buyersEmail: string;
   total: number;
   orderNumber: string;
@@ -102,8 +104,10 @@ export const nodeMailer = async ({
 				<td bgcolor="#426899" align="center" style="padding: 0px 10px 0px 10px;">
 					<table border="0" cellpadding="0" cellspacing="0" width="480" >
 						<tr>
+
 							<td bgcolor="#ffffff" align="left" valign="top" style="padding: 30px 30px 20px 30px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; line-height: 48px;">
-								<h1 style="font-size: 32px; font-weight: 400; margin: 0;">Thank you for your Order!</h1>
+							<p style="font-size: 28px; font-weight: 400; margin: 0;">Hi, ${name}</p>
+                <p style="font-size: 29px; font-weight: 400; margin: 0;">Thank you for your Order!</p>	
 							</td>
 						</tr>
 					</table>
@@ -120,7 +124,7 @@ export const nodeMailer = async ({
                       <p>Order no. ${orderNumber}</p>
                     </td>
                   </tr>
-									${table.join()}
+									${table.join("")}
                     <tr style="border-top: 0.5px solid grey;">
 										<th align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px; ">Subtotal</th>
 										<td align="left" valign="top" style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">$ ${total.toFixed(
