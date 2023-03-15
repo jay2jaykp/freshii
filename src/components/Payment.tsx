@@ -51,6 +51,7 @@ export const Payment: React.FC = () => {
       payment_status,
       name,
       email,
+      amount: total(),
       order: mealSelection.map((e) => ({
         date: e.date,
         dish: e.dish?.name || null,

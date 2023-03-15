@@ -27,6 +27,7 @@ export const exampleRouter = createTRPCRouter({
         id: z.string(),
         name: z.string(),
         email: z.string().email(),
+        amount: z.number(),
         payment_status: z.enum([
           "COMPLETED",
           "SAVED",
@@ -45,7 +46,7 @@ export const exampleRouter = createTRPCRouter({
     )
     .mutation(async ({ input, ctx }) => {
       try {
-        const { id, name, email, order, payment_status } = input;
+        const { id, name, email, order, payment_status, amount } = input;
         const paymentId = (
           await ctx.prisma.payment.create({
             data: {
@@ -53,6 +54,7 @@ export const exampleRouter = createTRPCRouter({
               name,
               email,
               payment_status,
+              amount,
             },
           })
         ).id;

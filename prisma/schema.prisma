@@ -20,6 +20,7 @@ model Payment {
     payment_status String
     name           String
     email          String
+    amount         Decimal
     Order          Order[]
 }
 
