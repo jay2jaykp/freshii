@@ -7,14 +7,14 @@ import { env } from "~/env.mjs";
 // async..await is not allowed in global scope, must use a wrapper
 export const nodeMailer = async ({
   name,
-  buyersEmail,
+  email,
   total,
   orderNumber,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   orders,
 }: {
   name: string;
-  buyersEmail: string;
+  email: string;
   total: number;
   orderNumber: string;
   orders: {
@@ -71,8 +71,8 @@ export const nodeMailer = async ({
 
   // send mail with defined transport object
   const info = await transporter.sendMail({
-    from: '"Freshii Kanata" <foo@example.com>', // sender address
-    to: buyersEmail, // list of receivers
+    from: `"Freshii Kanata" <${env.EMAIL}>`, // sender address
+    to: email, // list of receivers
     subject: "Your Freshii Order", // Subject line
     // text: "Hello world?", // plain text body
     html: `

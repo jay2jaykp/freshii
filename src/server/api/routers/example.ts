@@ -8,7 +8,7 @@ export const exampleRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string(),
-        buyersEmail: z.string().email(),
+        email: z.string().email(),
         total: z.number(),
         orderNumber: z.string(),
         orders: z.array(
