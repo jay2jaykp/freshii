@@ -16,13 +16,13 @@ export const Footer: React.FC = () => {
     <footer className="w-screen bg-neutral p-4">
       <div className="flex items-center justify-between">
         <button
-          disabled={step === 0}
+          disabled={step === 0 || step >= 4}
           onClick={decrement}
           className="btn-secondary btn"
         >
           Previous
         </button>
-        {[2].includes(step) && (
+        {[1, 2].includes(step) && (
           <p className="text-secondary">Total: {total().toFixed(2)}</p>
         )}
 

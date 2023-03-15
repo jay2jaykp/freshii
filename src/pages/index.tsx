@@ -7,6 +7,7 @@ import { MealSelection } from "~/components/MealSelection";
 import { OrderConfirmation } from "~/components/OrderConfirmation";
 import { Payment } from "~/components/Payment";
 import { useStepStore } from "../state/index";
+import { Final } from "~/components/Final";
 
 export const steps = [
   "Student Information",
@@ -35,6 +36,8 @@ const Home: NextPage = () => {
           <OrderConfirmation />
         ) : stepValue === 3 ? (
           <Payment />
+        ) : stepValue === 4 ? (
+          <Final />
         ) : (
           <h2>Nothing</h2>
         )}

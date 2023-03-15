@@ -1,6 +1,8 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import React from "react";
 import { api } from "~/utils/api";
+import { useEffect } from "react";
+import { useNextButtonDisableStore } from "../state/index";
 import {
   useMealSelectionStore,
   useStudentStore,
@@ -10,13 +12,26 @@ import {
 export const Payment: React.FC = () => {
   const { name, email } = useStudentStore();
   const { increment } = useStepStore();
+  const { toggleState } = useNextButtonDisableStore();
   const { total, mealSelection } = useMealSelectionStore();
+  const emailMutation = api.example.sendEmail.useMutation({
+    onSuccess: () => {
+      increment();
+    },
+  });
   const createOrderMutation = api.example.approveOrder.useMutation({
     onSuccess: (data) => {
       if (data.status === "success") {
         // do something
         console.log("🚀 ~ file: Payment.tsx:13 ~ success");
-        increment();
+        emailMutation.mutate({
+          buyersEmail: email,
+          order: mealSelection.map((each) => ({
+            date: each.date,
+            dish: each.dish?.name || null,
+            protein: each.protein?.name || null,
+          })),
+        });
       }
     },
   });
@@ -43,6 +58,10 @@ export const Payment: React.FC = () => {
       })),
     });
   };
+
+  useEffect(() => {
+    toggleState(true);
+  }, [toggleState]);
   return (
     <>
       <div className="card w-96 overflow-scroll bg-base-100 shadow-xl">

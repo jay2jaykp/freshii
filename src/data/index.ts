@@ -107,6 +107,13 @@ export const proteins = [
     image:
       "https://orders.freshii.com/_next/image?url=https%3A%2F%2Ffreimages.freshii.com%2FItems%2Fmodifiers%2FProteins%2F400x400__0005_proteins_hard_boiled_egg.png&w=3840&q=50",
   },
+  {
+    id: 6,
+    name: "no protein",
+    price: 0,
+    image:
+      "https://p7.hiclipart.com/preview/493/53/85/no-symbol-sign-clip-art-prohibited-signs.jpg",
+  },
 ];
 
 export const Themes = [

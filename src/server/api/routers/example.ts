@@ -4,9 +4,22 @@ import { nodeMailer } from "../../../utils/nodemailer";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const exampleRouter = createTRPCRouter({
-  sendEmail: publicProcedure.query(async () => {
-    await nodeMailer();
-  }),
+  sendEmail: publicProcedure
+    .input(
+      z.object({
+        buyersEmail: z.string().email(),
+        order: z.array(
+          z.object({
+            date: z.date(),
+            dish: z.string().nullable(),
+            protein: z.string().nullable(),
+          })
+        ),
+      })
+    )
+    .mutation(async ({ input }) => {
+      await nodeMailer({ buyersEmail: input.buyersEmail, orders: input.order });
+    }),
 
   approveOrder: publicProcedure
     .input(

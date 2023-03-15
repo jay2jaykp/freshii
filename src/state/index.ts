@@ -45,7 +45,7 @@ export const useStudentStore = create<StudentInformationStore>((set) => ({
     set(() => ({ [field]: value })),
 }));
 
-interface MealSelection {
+export interface MealSelection {
   date: Date;
   dish: (typeof dishes)[0] | null;
   protein: (typeof proteins)[0] | null;
