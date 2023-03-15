@@ -50,23 +50,18 @@ export const exampleRouter = createTRPCRouter({
           })
         ).id;
 
-        const trx = order.map((each) => {
-          const { date, dish, protein } = each;
-          return ctx.prisma.order.create({
-            data: {
-              payment_ref: {
-                connect: {
-                  id: paymentId,
-                },
-              },
+        await ctx.prisma.order.createMany({
+          data: order.map((each) => {
+            const { date, dish, protein } = each;
+            return {
+              payment_id: paymentId,
               date,
               dish,
               protein,
-            },
-          });
+            };
+          }),
         });
 
-        await ctx.prisma.$transaction(trx);
         return {
           status: "success",
         };
