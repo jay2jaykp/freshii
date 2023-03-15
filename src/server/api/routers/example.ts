@@ -8,17 +8,30 @@ export const exampleRouter = createTRPCRouter({
     .input(
       z.object({
         buyersEmail: z.string().email(),
-        order: z.array(
+        total: z.number(),
+        orderNumber: z.string(),
+        orders: z.array(
           z.object({
             date: z.date(),
-            dish: z.string().nullable(),
-            protein: z.string().nullable(),
+            dish: z
+              .object({
+                name: z.string(),
+                price: z.number(),
+              })
+              .nullable(),
+            protein: z
+              .object({
+                name: z.string(),
+                price: z.number(),
+              })
+              .nullable(),
           })
         ),
       })
     )
     .mutation(async ({ input }) => {
-      await nodeMailer({ buyersEmail: input.buyersEmail, orders: input.order });
+      // await nodeMailer({ buyersEmail: input.buyersEmail, total: input.total, orders: input.order });
+      await nodeMailer(input);
     }),
 
   approveOrder: publicProcedure
@@ -27,7 +40,8 @@ export const exampleRouter = createTRPCRouter({
         id: z.string(),
         name: z.string(),
         email: z.string().email(),
-        amount: z.number(),
+        total: z.number(),
+        subtotal: z.number(),
         payment_status: z.enum([
           "COMPLETED",
           "SAVED",
@@ -46,7 +60,8 @@ export const exampleRouter = createTRPCRouter({
     )
     .mutation(async ({ input, ctx }) => {
       try {
-        const { id, name, email, order, payment_status, amount } = input;
+        const { id, name, email, order, payment_status, total, subtotal } =
+          input;
         const paymentId = (
           await ctx.prisma.payment.create({
             data: {
@@ -54,7 +69,8 @@ export const exampleRouter = createTRPCRouter({
               name,
               email,
               payment_status,
-              amount,
+              total,
+              subtotal,
             },
           })
         ).id;
@@ -85,4 +101,13 @@ export const exampleRouter = createTRPCRouter({
   getAllOrders: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.order.findMany({});
   }),
+
+  // emailTest: publicProcedure.query(async () => {
+  //   await nodeMailer({
+  //     buyersEmail: "jay2jaykp@gmail.com",
+  //     total: 2,
+  //     orderNumber: "13123232",
+  //     orders: [],
+  //   });
+  // }),
 });

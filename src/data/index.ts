@@ -9,6 +9,9 @@ export const dates = [
   "05-11-2023",
   "05-18-2023",
   "05-25-2023",
+  "06-01-2023",
+  "06-08-2023",
+  "06-15-2023",
 ];
 
 export const dishes = [
@@ -74,42 +77,42 @@ export const dishes = [
 export const proteins = [
   {
     id: 1,
-    name: "chicken",
+    name: "Chicken",
     price: 2.75,
     image:
       "https://orders.freshii.com/_next/image?url=https%3A%2F%2Ffreimages.freshii.com%2FItems%2Fmodifiers%2FProteins%2F400x400__0001_proteins_chicken.png&w=3840&q=50",
   },
   {
     id: 2.75,
-    name: "steak",
+    name: "Steak",
     price: 2.75,
     image:
       "https://orders.freshii.com/_next/image?url=https%3A%2F%2Ffreimages.freshii.com%2FItems%2Fmodifiers%2FProteins%2F400x400__0003_proteins_steak.png&w=3840&q=50",
   },
   {
     id: 3,
-    name: "tofu",
+    name: "Tofu",
     price: 2.75,
     image:
       "https://orders.freshii.com/_next/image?url=https%3A%2F%2Ffreimages.freshii.com%2FItems%2Fmodifiers%2FProteins%2F400x400__0002_proteins_tofu.png&w=3840&q=50",
   },
   {
     id: 4,
-    name: "falafel",
+    name: "Falafel",
     price: 2.75,
     image:
       "https://orders.freshii.com/_next/image?url=https%3A%2F%2Ffreimages.freshii.com%2FItems%2Fmodifiers%2FProteins%2F400x400__0004_proteins_falafel.png&w=3840&q=50",
   },
   {
     id: 5,
-    name: "hard boiled eggs",
+    name: "Hard Boiled Eggs",
     price: 2.75,
     image:
       "https://orders.freshii.com/_next/image?url=https%3A%2F%2Ffreimages.freshii.com%2FItems%2Fmodifiers%2FProteins%2F400x400__0005_proteins_hard_boiled_egg.png&w=3840&q=50",
   },
   {
     id: 6,
-    name: "no protein",
+    name: "No protein",
     price: 0,
     image:
       "https://p7.hiclipart.com/preview/493/53/85/no-symbol-sign-clip-art-prohibited-signs.jpg",

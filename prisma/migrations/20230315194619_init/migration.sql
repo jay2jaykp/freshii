@@ -4,7 +4,8 @@ CREATE TABLE "Payment" (
     "payment_status" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "amount" DECIMAL(65,30) NOT NULL,
+    "subtotal" DECIMAL(65,30) NOT NULL,
+    "total" DECIMAL(65,30) NOT NULL,
 
     CONSTRAINT "Payment_pkey" PRIMARY KEY ("id")
 );

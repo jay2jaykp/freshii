@@ -10,7 +10,7 @@ export const OrderConfirmation: React.FC = () => {
   const { toggleState } = useNextButtonDisableStore();
   useEffect(() => {
     toggleState(false);
-  }, []);
+  }, [toggleState]);
   return (
     <div className="flex flex-wrap justify-center gap-2">
       {mealSelection.map((each) => (
@@ -29,10 +29,12 @@ export const OrderConfirmation: React.FC = () => {
           {!each.skip && (
             <div className="flex justify-center gap-2 text-center capitalize">
               <div className=" ">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={each.dish?.image} alt={each.dish?.name} />
                 <p>{each.dish?.name}</p>
               </div>
               <div className=" ">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={each.protein?.image} alt={each.protein?.name} />
                 <p>{each.protein?.name}</p>
               </div>

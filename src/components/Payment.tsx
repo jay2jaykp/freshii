@@ -1,7 +1,6 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { api } from "~/utils/api";
-import { useEffect } from "react";
 import { useNextButtonDisableStore } from "../state/index";
 import {
   useMealSelectionStore,
@@ -14,6 +13,7 @@ export const Payment: React.FC = () => {
   const { increment } = useStepStore();
   const { toggleState } = useNextButtonDisableStore();
   const { total, mealSelection } = useMealSelectionStore();
+  const [orderNumber, setOrderNumber] = useState("");
   const emailMutation = api.example.sendEmail.useMutation({
     onSuccess: () => {
       increment();
@@ -26,10 +26,22 @@ export const Payment: React.FC = () => {
         console.log("🚀 ~ file: Payment.tsx:13 ~ success");
         emailMutation.mutate({
           buyersEmail: email,
-          order: mealSelection.map((each) => ({
+          total: total(),
+          orderNumber,
+          orders: mealSelection.map((each) => ({
             date: each.date,
-            dish: each.dish?.name || null,
-            protein: each.protein?.name || null,
+            dish: !each.dish
+              ? null
+              : {
+                  name: each.dish.name,
+                  price: each.dish.price,
+                },
+            protein: !each.protein
+              ? null
+              : {
+                  name: each.protein.name,
+                  price: each.protein.price,
+                },
           })),
         });
       }
@@ -51,7 +63,8 @@ export const Payment: React.FC = () => {
       payment_status,
       name,
       email,
-      amount: total(),
+      subtotal: total(),
+      total: total() * 1.13,
       order: mealSelection.map((e) => ({
         date: e.date,
         dish: e.dish?.name || null,
@@ -79,7 +92,7 @@ export const Payment: React.FC = () => {
                   purchase_units: [
                     {
                       amount: {
-                        value: total().toFixed(2),
+                        value: (total() * 1.13).toFixed(2),
                       },
                     },
                   ],
@@ -88,6 +101,7 @@ export const Payment: React.FC = () => {
               onApprove={async (data, action) => {
                 if (action.order) {
                   const order = await action.order.capture();
+                  setOrderNumber(order.id);
                   handleApproveOrder(order.id, order.status);
                 }
               }}
