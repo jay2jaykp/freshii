@@ -7,6 +7,7 @@ export const exampleRouter = createTRPCRouter({
   sendEmail: publicProcedure
     .input(
       z.object({
+        name: z.string(),
         buyersEmail: z.string().email(),
         total: z.number(),
         orderNumber: z.string(),
