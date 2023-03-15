@@ -9,10 +9,6 @@ const SubHeading: React.FC<{ title: string }> = ({ title }) => {
 };
 
 export const MealSelection: React.FC = () => {
-  return <SingleMealSelection />;
-};
-
-export const SingleMealSelection: React.FC = () => {
   const { mealSelection, setMealSelection, skipMealSelection } =
     useMealSelectionStore();
   const { toggleState } = useMyDisableStore();
@@ -35,31 +31,31 @@ export const SingleMealSelection: React.FC = () => {
   //   null | (typeof proteins)[0]
   // >(null);
   return (
-    <>
+    <div className="w-screen p-2">
       {mealSelection.map((each) => (
         <div
           key={each.date.toString()}
-          className="mb-2 w-full rounded-lg border-2 border-neutral"
+          className=" w-full rounded-lg border-2 border-neutral"
         >
           <div
-            className={`flex items-center justify-between px-2 text-center ${
+            className={`sticky top-0 flex items-center  justify-between px-2 text-center text-neutral ${
               (each.dish === null || each.protein === null) &&
               each.skip === false
                 ? "bg-warning"
                 : "bg-success"
             }`}
           >
-            <p className="p-2 text-xl">
-              {each.date.toDateString()}{" "}
-              <span className="bg-error">
+            <div className="flex flex-wrap items-center">
+              <p className="p-2 text-xl">{each.date.toDateString()} </p>
+              <p className="bg-error text-secondary">
                 {(each.dish === null || each.protein === null) &&
                 each.skip === false
                   ? "Please make the selection"
                   : ""}
-              </span>
-            </p>
-            <div className="items-around flex justify-around gap-2">
-              <span>Skip the day</span>
+              </p>
+            </div>
+            <div className="items-around flex flex-wrap justify-around gap-2">
+              <span>Skip day</span>
               <input
                 type="checkbox"
                 className="toggle-error toggle toggle-md"
@@ -71,7 +67,7 @@ export const SingleMealSelection: React.FC = () => {
             </div>
           </div>
           {!each.skip && (
-            <div className="flex justify-around sm:block">
+            <div className="block justify-around sm:flex sm:flex-wrap">
               <div className="p-2">
                 <SubHeading title="Select Main Dish - $8.99" />
                 <div className="overflow-scroll sm:flex sm:flex-wrap sm:justify-center sm:gap-2">
@@ -82,7 +78,7 @@ export const SingleMealSelection: React.FC = () => {
                         each.dish?.id === dish.id
                           ? " border-primary"
                           : "border-transparent"
-                      } flex border p-2 text-center sm:w-32`}
+                      }  flex flex-wrap border p-2 text-center sm:w-32`}
                     >
                       <input
                         type="radio"
@@ -105,7 +101,7 @@ export const SingleMealSelection: React.FC = () => {
                         }}
                       />
                       <label
-                        className="relative ml-2 sm:ml-0"
+                        className=" ml-2 block sm:ml-0"
                         htmlFor={`${each.date.toString()} ${dish.name}`}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -114,8 +110,8 @@ export const SingleMealSelection: React.FC = () => {
                           src={dish.image}
                           alt={dish.name}
                         />
-                        <p className="inline-block sm:block">{dish.name}</p>
-                        <p className="badge-primary badge inline-block sm:absolute sm:-right-3 sm:top-0 sm:block">
+                        <p className="inline-block">{dish.name}</p>
+                        <p className="badge-primary badge inline-block ">
                           {dish.type}
                         </p>
                       </label>
@@ -176,6 +172,6 @@ export const SingleMealSelection: React.FC = () => {
           )}
         </div>
       ))}
-    </>
+    </div>
   );
 };

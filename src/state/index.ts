@@ -54,9 +54,10 @@ interface MealSelectionStore {
   mealSelection: MealSelection[];
   setMealSelection: (meal: MealSelection, type: "main" | "protein") => void;
   skipMealSelection: (date: Date, skip: boolean) => void;
+  total: () => number;
 }
 
-export const useMealSelectionStore = create<MealSelectionStore>((set) => ({
+export const useMealSelectionStore = create<MealSelectionStore>((set, get) => ({
   mealSelection: dates.map((date) => ({
     date: new Date(date),
     dish: null,
@@ -92,6 +93,14 @@ export const useMealSelectionStore = create<MealSelectionStore>((set) => ({
         return each;
       }),
     })),
+  total: () =>
+    get().mealSelection.reduce(
+      (a, b) =>
+        Number(
+          a + (b.dish ? b.dish.price : 0) + (b.protein ? b.protein.price : 0)
+        ),
+      0
+    ),
 }));
 
 if (process.env.NODE_ENV === "development") {

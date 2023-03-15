@@ -5,6 +5,8 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { env } from "~/env.mjs";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -12,7 +14,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <PayPalScriptProvider
+        options={{
+          "client-id": env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
+        }}
+      >
+        <Component {...pageProps} />
+      </PayPalScriptProvider>
     </SessionProvider>
   );
 };

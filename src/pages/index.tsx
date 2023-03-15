@@ -24,7 +24,7 @@ export const steps = [
 
 const Home: NextPage = () => {
   // const [step, setStep] = useState(0);
-  const { step, increment, decrement } = useMyStore((state) => ({
+  const { step } = useMyStore((state) => ({
     step: state.step,
     increment: state.increment,
     decrement: state.decrement,
@@ -64,26 +64,36 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div
-        className="flex min-h-screen flex-col items-center justify-center "
+        className="flex h-screen  flex-col items-center justify-center "
         data-theme={theme}
       >
         <Navbar />
+
         {/* Stepper */}
-        <div className="my-2 mx-auto">
-          <ul className="steps">
-            {steps.map((each, idx) => (
-              <li
-                key={idx}
-                className={`${step === idx ? "step-accent" : ""} step`}
-              >
-                {each}
-              </li>
-            ))}
-          </ul>
+        <div className="my-6 mx-auto">
+          <div className="text-center sm:hidden">
+            <p>Step {step}</p>
+            <p>{steps[step]}</p>
+          </div>
+
+          <div className="hidden sm:block">
+            <ul className="steps">
+              {steps.map((each, idx) => (
+                <li
+                  key={idx}
+                  className={`${step === idx ? "step-accent" : ""} step`}
+                >
+                  {each}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <main className=" flex-grow">
+
+        <main className="relative flex-grow overflow-scroll">
           <PageSwitcher stepValue={step} />
         </main>
+
         <Footer />
       </div>
     </>

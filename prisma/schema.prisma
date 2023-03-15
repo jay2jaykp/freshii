@@ -14,10 +14,22 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Payment {
+    /// transaction id
+    id             String  @id
+    payment_status String
+    name           String
+    email          String
+    Order          Order[]
+}
+
+model Order {
+    id          Int      @id @default(autoincrement())
+    payment_ref Payment  @relation(fields: [payment_id], references: [id])
+    payment_id  String
+    date        DateTime
+    dish        String?
+    protein     String?
 }
 
 // Necessary for Next auth

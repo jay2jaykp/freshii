@@ -20,7 +20,7 @@ export const StudentInformation: React.FC = () => {
     toggleState(isFormValid());
   }, [email, name, number, toggleState]);
   return (
-    <div className="flex justify-center gap-4">
+    <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
       <div>
         <label className="label">
           <span className="label-text">Student Name</span>
@@ -31,18 +31,6 @@ export const StudentInformation: React.FC = () => {
           value={name}
           onChange={(e) => updateInformation("name", e.target.value)}
           className="input-bordered input w-full max-w-xs "
-        />
-      </div>
-      <div>
-        <label className="label">
-          <span className="label-text">Student Number</span>
-        </label>
-        <input
-          type="text"
-          placeholder="Type here"
-          value={number}
-          onChange={(e) => updateInformation("number", e.target.value)}
-          className="input-bordered input w-full max-w-xs"
         />
       </div>
       <div>
