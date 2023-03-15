@@ -1,13 +1,7 @@
 import { z } from "zod";
 import { nodeMailer } from "../../../utils/nodemailer";
-import { Payment } from "../../../components/Payment";
-import { prisma } from "../../db";
 
-import {
-  createTRPCRouter,
-  publicProcedure,
-  protectedProcedure,
-} from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const exampleRouter = createTRPCRouter({
   sendEmail: publicProcedure.query(async () => {

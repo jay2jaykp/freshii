@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { type proteins, type dishes, type Themes } from "../data";
+import { type proteins, type dishes } from "../data";
 import { dates } from "../data/index";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 

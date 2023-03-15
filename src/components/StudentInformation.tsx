@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { z } from "zod";
 import { useNextButtonDisableStore, useStudentStore } from "../state/index";
 import { useEffect } from "react";
@@ -22,7 +22,7 @@ export const StudentInformation: React.FC = () => {
 
   useEffect(() => {
     toggleState(true);
-  }, []);
+  }, [toggleState]);
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
       <div>
