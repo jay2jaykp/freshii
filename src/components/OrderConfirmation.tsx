@@ -1,10 +1,13 @@
 import React from "react";
-import { useMealSelectionStore, useMyDisableStore } from "../state/index";
+import {
+  useMealSelectionStore,
+  useNextButtonDisableStore,
+} from "../state/index";
 import { useEffect } from "react";
 
 export const OrderConfirmation: React.FC = () => {
   const { mealSelection } = useMealSelectionStore();
-  const { toggleState } = useMyDisableStore();
+  const { toggleState } = useNextButtonDisableStore();
   useEffect(() => {
     toggleState(false);
   }, []);

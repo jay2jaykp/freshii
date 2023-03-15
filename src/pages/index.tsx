@@ -1,18 +1,12 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
-
-import { api } from "~/utils/api";
 import { Navbar } from "~/components/Navbar";
 import { Footer } from "~/components/Footer";
-import { useState, useEffect } from "react";
 import { StudentInformation } from "~/components/StudentInformation";
 import { MealSelection } from "~/components/MealSelection";
 import { OrderConfirmation } from "~/components/OrderConfirmation";
 import { Payment } from "~/components/Payment";
-import { useMyStore, useThemeStore } from "../state/index";
-import { Themes } from "../data/index";
+import { useStepStore } from "../state/index";
 
 export const steps = [
   "Student Information",
@@ -24,13 +18,11 @@ export const steps = [
 
 const Home: NextPage = () => {
   // const [step, setStep] = useState(0);
-  const { step } = useMyStore((state) => ({
+  const { step } = useStepStore((state) => ({
     step: state.step,
     increment: state.increment,
     decrement: state.decrement,
   }));
-
-  const { theme, setTheme } = useThemeStore();
 
   const PageSwitcher: React.FC<{ stepValue: number }> = ({ stepValue }) => {
     return (
@@ -50,12 +42,6 @@ const Home: NextPage = () => {
     );
   };
 
-  useEffect(() => {
-    const existingTheme = localStorage.getItem("theme");
-    if (existingTheme && (Themes as any as string[]).includes(existingTheme)) {
-      setTheme(existingTheme as any as (typeof Themes)[number]);
-    }
-  }, []);
   return (
     <>
       <Head>
@@ -65,7 +51,7 @@ const Home: NextPage = () => {
       </Head>
       <div
         className="flex h-screen  flex-col items-center justify-center "
-        data-theme={theme}
+        data-theme={"autumn"}
       >
         <Navbar />
 

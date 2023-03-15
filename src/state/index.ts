@@ -1,29 +1,31 @@
 import { create } from "zustand";
-import { type proteins, type dishes, Themes } from "../data";
+import { type proteins, type dishes, type Themes } from "../data";
 import { dates } from "../data/index";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 
-interface MyState {
+interface StepStore {
   step: number;
   increment: () => void;
   decrement: () => void;
 }
 
-export const useMyStore = create<MyState>((set) => ({
+export const useStepStore = create<StepStore>((set) => ({
   step: 0,
   increment: () => set((state) => ({ step: state.step + 1 })),
   decrement: () => set((state) => ({ step: state.step - 1 })),
 }));
 
-interface MyDisabledStore {
+interface NextButtonDisableStore {
   disabled: boolean;
   toggleState: (newVal: boolean) => void;
 }
 
-export const useMyDisableStore = create<MyDisabledStore>((set) => ({
-  disabled: false,
-  toggleState: (newVal: boolean) => set(() => ({ disabled: newVal })),
-}));
+export const useNextButtonDisableStore = create<NextButtonDisableStore>(
+  (set) => ({
+    disabled: false,
+    toggleState: (newVal: boolean) => set(() => ({ disabled: newVal })),
+  })
+);
 
 interface StudentInformationStore {
   name: string;
@@ -106,18 +108,3 @@ export const useMealSelectionStore = create<MealSelectionStore>((set, get) => ({
 if (process.env.NODE_ENV === "development") {
   mountStoreDevtool("meal selection", useMealSelectionStore);
 }
-
-type Theme = (typeof Themes)[number];
-
-interface ThemeStore {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
-}
-
-export const useThemeStore = create<ThemeStore>((set) => ({
-  theme: "corporate",
-  setTheme: (theme: Theme) =>
-    set(() => ({
-      theme,
-    })),
-}));

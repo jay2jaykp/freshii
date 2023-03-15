@@ -1,20 +1,16 @@
 import React, { useState } from "react";
 import { steps } from "~/pages";
 import {
-  useMyStore,
-  useMyDisableStore,
+  useStepStore,
+  useNextButtonDisableStore,
   useMealSelectionStore,
 } from "../state/index";
 import { useEffect } from "react";
 
 export const Footer: React.FC = () => {
-  const { step, increment, decrement } = useMyStore((state) => state);
-  const { disabled, toggleState } = useMyDisableStore((state) => state);
+  const { step, increment, decrement } = useStepStore((state) => state);
+  const { disabled } = useNextButtonDisableStore((state) => state);
   const { total } = useMealSelectionStore();
-
-  useEffect(() => {
-    toggleState(true);
-  }, [step]);
 
   return (
     <footer className="w-screen bg-neutral p-4">

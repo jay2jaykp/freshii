@@ -4,12 +4,12 @@ import { api } from "~/utils/api";
 import {
   useMealSelectionStore,
   useStudentStore,
-  useMyStore,
+  useStepStore,
 } from "../state/index";
 
 export const Payment: React.FC = () => {
   const { name, email } = useStudentStore();
-  const { increment } = useMyStore();
+  const { increment } = useStepStore();
   const { total, mealSelection } = useMealSelectionStore();
   const createOrderMutation = api.example.approveOrder.useMutation({
     onSuccess: (data) => {

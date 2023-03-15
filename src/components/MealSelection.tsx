@@ -1,7 +1,10 @@
 import React, { PropsWithChildren, useState } from "react";
 import { dishes } from "~/data";
 import { proteins } from "../data/index";
-import { useMealSelectionStore, useMyDisableStore } from "../state/index";
+import {
+  useMealSelectionStore,
+  useNextButtonDisableStore,
+} from "../state/index";
 import { useEffect } from "react";
 
 const SubHeading: React.FC<{ title: string }> = ({ title }) => {
@@ -11,7 +14,7 @@ const SubHeading: React.FC<{ title: string }> = ({ title }) => {
 export const MealSelection: React.FC = () => {
   const { mealSelection, setMealSelection, skipMealSelection } =
     useMealSelectionStore();
-  const { toggleState } = useMyDisableStore();
+  const { toggleState } = useNextButtonDisableStore();
 
   useEffect(() => {
     if (
@@ -24,12 +27,10 @@ export const MealSelection: React.FC = () => {
       toggleState(false);
     }
   }, [mealSelection]);
-  // const [selectedMeal, setSelectedMeal] = useState<null | (typeof dishes)[0]>(
-  //   null
-  // );
-  // const [selectedProtein, setSelectedProtein] = useState<
-  //   null | (typeof proteins)[0]
-  // >(null);
+
+  useEffect(() => {
+    toggleState(true);
+  }, []);
   return (
     <div className="w-screen p-2">
       {mealSelection.map((each) => (

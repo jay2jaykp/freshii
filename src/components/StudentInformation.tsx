@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { z } from "zod";
-import { useMyDisableStore, useStudentStore } from "../state/index";
+import { useNextButtonDisableStore, useStudentStore } from "../state/index";
 import { useEffect } from "react";
 
 const formSchema = z.object({
@@ -10,7 +10,7 @@ const formSchema = z.object({
 });
 
 export const StudentInformation: React.FC = () => {
-  const toggleState = useMyDisableStore((state) => state.toggleState);
+  const toggleState = useNextButtonDisableStore((state) => state.toggleState);
   const { email, name, number, updateInformation } = useStudentStore();
 
   useEffect(() => {
@@ -19,6 +19,10 @@ export const StudentInformation: React.FC = () => {
     };
     toggleState(isFormValid());
   }, [email, name, number, toggleState]);
+
+  useEffect(() => {
+    toggleState(true);
+  }, []);
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
       <div>
