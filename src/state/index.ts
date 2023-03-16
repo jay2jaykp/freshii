@@ -30,18 +30,13 @@ export const useNextButtonDisableStore = create<NextButtonDisableStore>(
 interface StudentInformationStore {
   name: string;
   email: string;
-  number: string;
-  updateInformation: (
-    field: "name" | "email" | "number",
-    value: string
-  ) => void;
+  updateInformation: (field: "name" | "email", value: string) => void;
 }
 
 export const useStudentStore = create<StudentInformationStore>((set) => ({
   name: "",
   email: "",
-  number: "",
-  updateInformation: (field: "name" | "email" | "number", value: string) =>
+  updateInformation: (field: "name" | "email", value: string) =>
     set(() => ({ [field]: value })),
 }));
 

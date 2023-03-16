@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { z } from "zod";
 import { useNextButtonDisableStore, useStudentStore } from "../state/index";
 import { useEffect } from "react";
@@ -6,23 +6,23 @@ import { useEffect } from "react";
 const formSchema = z.object({
   name: z.string().nonempty(),
   email: z.string().email().nonempty(),
-  number: z.string(),
 });
 
 export const StudentInformation: React.FC = () => {
   const toggleState = useNextButtonDisableStore((state) => state.toggleState);
-  const { email, name, number, updateInformation } = useStudentStore();
+  const { email, name, updateInformation } = useStudentStore();
+
+  const isFormValid = useCallback((): boolean => {
+    return !formSchema.safeParse({ email, name }).success;
+  }, [email, name]);
 
   useEffect(() => {
-    const isFormValid = (): boolean => {
-      return !formSchema.safeParse({ email, name, number }).success;
-    };
     toggleState(isFormValid());
-  }, [email, name, number, toggleState]);
+  }, [email, isFormValid, name, toggleState]);
 
   useEffect(() => {
-    toggleState(true);
-  }, [toggleState]);
+    toggleState(isFormValid());
+  }, [toggleState, isFormValid]);
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
       <div>
