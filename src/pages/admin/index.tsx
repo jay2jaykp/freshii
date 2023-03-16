@@ -7,8 +7,13 @@ import { dates } from "../../data/index";
 
 const Admin: NextPage = () => {
   const [selectedDate, setSelectedDate] = useState<string>(dates[0] || "");
-  const orders = api.example.getAllOrders.useQuery({ date: selectedDate });
   const { data: session, status } = useSession();
+  const orders = api.example.getAllOrders.useQuery(
+    { date: selectedDate },
+    {
+      enabled: status === "authenticated",
+    }
+  );
 
   return (
     <>
