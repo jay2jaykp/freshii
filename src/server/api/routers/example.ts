@@ -17,6 +17,7 @@ export const exampleRouter = createTRPCRouter({
             dish: z
               .object({
                 name: z.string(),
+                type: z.string(),
                 price: z.number(),
               })
               .nullable(),
@@ -99,9 +100,24 @@ export const exampleRouter = createTRPCRouter({
       }
     }),
 
-  getAllOrders: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.order.findMany({});
-  }),
+  getAllOrders: publicProcedure
+    .input(
+      z.object({
+        date: z.string(),
+      })
+    )
+    .query(({ input, ctx }) => {
+      return ctx.prisma.order.findMany({
+        include: {
+          payment_ref: true,
+        },
+        where: {
+          date: {
+            equals: new Date(input.date),
+          },
+        },
+      });
+    }),
 
   // emailTest: publicProcedure.query(async () => {
   //   await nodeMailer({

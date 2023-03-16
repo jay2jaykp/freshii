@@ -19,10 +19,10 @@ const server = z.object({
     process.env.VERCEL ? z.string().min(1) : z.string().url(),
   ),
   EMAIL: z.string().email(),
-  EMAIL_PASSWORD: z.string()
+  EMAIL_PASSWORD: z.string(),
   // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
-  // DISCORD_CLIENT_ID: z.string(),
-  // DISCORD_CLIENT_SECRET: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
+  GOOGLE_CLIENT_ID: z.string(),
 });
 
 /**
@@ -48,8 +48,8 @@ const processEnv = {
   NEXT_PUBLIC_PAYPAL_CLIENT_ID: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
   EMAIL: process.env.EMAIL,
   EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
-  // DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
-  // DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 

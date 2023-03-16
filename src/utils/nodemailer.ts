@@ -21,6 +21,7 @@ export const nodeMailer = async ({
     date: Date;
     dish: {
       name: string;
+      type: string;
       price: number;
     } | null;
     protein: {
@@ -48,11 +49,11 @@ export const nodeMailer = async ({
   const table = orders.map(
     (order) => `
     <tr>
-      <th colspan="2" align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">${order.date.toDateString()}</th>
+      <th colspan="2" align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px; border-top: 1px solid grey; padding-top: 10px;">${order.date.toDateString()}</th>
     </tr>
     <tr>
       <th align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">${
-        order.dish?.name || "None"
+        order.dish ? order.dish.name + " " + order.dish.type : "None"
       }</th>
       <td align="left" valign="top" style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">$ ${
         order.dish?.price || 0
@@ -125,19 +126,19 @@ export const nodeMailer = async ({
                     </td>
                   </tr>
 									${table.join("")}
-                    <tr style="border-top: 0.5px solid grey;">
-										<th align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px; ">Subtotal</th>
-										<td align="left" valign="top" style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">$ ${total.toFixed(
+                    <tr style="background-color: antiquewhite;">
+										<th align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px; border-top: 3.5px solid grey; padding-top: 10px; ">Subtotal</th>
+										<td align="left" valign="top" style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px; border-top: 3.5px solid grey; padding-top: 10px;">$ ${total.toFixed(
                       2
                     )}</td>
 									</tr>
-                   <tr>
+                   <tr style="background-color: antiquewhite;">
 										<th align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">HST</th>
 										<td align="left" valign="top" style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">$ ${(
                       total * 0.13
                     ).toFixed(2)}</td>
 									</tr>
-                   <tr>
+                   <tr style="background-color: antiquewhite;">
 										<th align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 600; line-height: 25px;">Total</th>
 										<td align="left" valign="top" style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 600; line-height: 25px;">$ ${(
                       total * 1.13

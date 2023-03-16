@@ -6,6 +6,8 @@ import {
 } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "~/server/db";
+import GoogleProvider from "next-auth/providers/google";
+import { env } from "~/env.mjs";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -42,9 +44,24 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    signIn({ user }) {
+      if (
+        user.email &&
+        ["jay2jaykp@gmail.com", "freshiikanatanorth@gmail.com"].includes(
+          user.email
+        )
+      ) {
+        return true;
+      }
+      return false;
+    },
   },
   adapter: PrismaAdapter(prisma),
   providers: [
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+    }),
     // DiscordProvider({
     //   clientId: env.DISCORD_CLIENT_ID,
     //   clientSecret: env.DISCORD_CLIENT_SECRET,

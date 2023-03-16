@@ -35,6 +35,7 @@ export const Payment: React.FC = () => {
               ? null
               : {
                   name: each.dish.name,
+                  type: each.dish.type,
                   price: each.dish.price,
                 },
             protein: !each.protein

@@ -20,8 +20,8 @@ model Payment {
     payment_status String
     name           String
     email          String
-    subtotal       Decimal
-    total          Decimal
+    subtotal       Decimal @db.Decimal(10, 2)
+    total          Decimal @db.Decimal(10, 2)
     Order          Order[]
 }
 
