@@ -35,7 +35,7 @@ export const MealSelection: React.FC = () => {
     <div className="w-screen p-2">
       {mealSelection.map((each) => (
         <div
-          key={each.date.toString()}
+          key={each.date.toDateString()}
           className=" w-full rounded-lg border-2 border-neutral"
         >
           <div
