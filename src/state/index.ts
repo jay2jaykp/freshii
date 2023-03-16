@@ -91,12 +91,18 @@ export const useMealSelectionStore = create<MealSelectionStore>((set, get) => ({
       }),
     })),
   total: () =>
-    get().mealSelection.reduce(
-      (a, b) =>
-        Number(
-          a + (b.dish ? b.dish.price : 0) + (b.protein ? b.protein.price : 0)
-        ),
-      0
+    Number(
+      get()
+        .mealSelection.reduce(
+          (a, b) =>
+            Number(
+              a +
+                (b.dish ? b.dish.price : 0) +
+                (b.protein ? b.protein.price : 0)
+            ),
+          0
+        )
+        .toFixed(2)
     ),
 }));
 
