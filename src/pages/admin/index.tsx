@@ -15,6 +15,8 @@ const Admin: NextPage = () => {
     }
   );
 
+  console.log(orders.data);
+
   return (
     <>
       <Navbar />
