@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { dishes } from "~/data";
 import { proteins } from "../data/index";
 import {
@@ -16,26 +16,26 @@ export const MealSelection: React.FC = () => {
     useMealSelectionStore();
   const { toggleState } = useNextButtonDisableStore();
 
-  useEffect(() => {
-    if (
+  const validMealSelection = useCallback(
+    () =>
       mealSelection.filter(
         (e) => (e.dish === null || e.protein === null) && !e.skip
-      ).length > 0
-    ) {
-      toggleState(true);
-    } else {
-      toggleState(false);
-    }
-  }, [mealSelection]);
+      ).length > 0,
+    [mealSelection]
+  );
 
   useEffect(() => {
-    toggleState(true);
-  }, []);
+    toggleState(validMealSelection());
+  }, [mealSelection, toggleState, validMealSelection]);
+
+  useEffect(() => {
+    toggleState(validMealSelection());
+  }, [toggleState, validMealSelection]);
   return (
     <div className="w-screen p-2">
       {mealSelection.map((each) => (
         <div
-          key={each.date.toString()}
+          key={each.date.toDateString()}
           className=" w-full rounded-lg border-2 border-neutral"
         >
           <div

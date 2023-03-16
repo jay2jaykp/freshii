@@ -25,7 +25,8 @@ export const Payment: React.FC = () => {
         // do something
         console.log("🚀 ~ file: Payment.tsx:13 ~ success");
         emailMutation.mutate({
-          buyersEmail: email,
+          name,
+          email,
           total: total(),
           orderNumber,
           orders: mealSelection.map((each) => ({
@@ -34,6 +35,7 @@ export const Payment: React.FC = () => {
               ? null
               : {
                   name: each.dish.name,
+                  type: each.dish.type,
                   price: each.dish.price,
                 },
             protein: !each.protein

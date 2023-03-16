@@ -6,19 +6,22 @@ import { env } from "~/env.mjs";
 
 // async..await is not allowed in global scope, must use a wrapper
 export const nodeMailer = async ({
-  buyersEmail,
+  name,
+  email,
   total,
   orderNumber,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   orders,
 }: {
-  buyersEmail: string;
+  name: string;
+  email: string;
   total: number;
   orderNumber: string;
   orders: {
     date: Date;
     dish: {
       name: string;
+      type: string;
       price: number;
     } | null;
     protein: {
@@ -46,11 +49,11 @@ export const nodeMailer = async ({
   const table = orders.map(
     (order) => `
     <tr>
-      <th colspan="2" align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">${order.date.toDateString()}</th>
+      <th colspan="2" align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px; border-top: 1px solid grey; padding-top: 10px;">${order.date.toDateString()}</th>
     </tr>
     <tr>
       <th align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">${
-        order.dish?.name || "None"
+        order.dish ? order.dish.name + " " + order.dish.type : "None"
       }</th>
       <td align="left" valign="top" style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">$ ${
         order.dish?.price || 0
@@ -69,8 +72,8 @@ export const nodeMailer = async ({
 
   // send mail with defined transport object
   const info = await transporter.sendMail({
-    from: '"Freshii Kanata" <foo@example.com>', // sender address
-    to: buyersEmail, // list of receivers
+    from: `"Freshii Kanata" <${env.EMAIL}>`, // sender address
+    to: email, // list of receivers
     subject: "Your Freshii Order", // Subject line
     // text: "Hello world?", // plain text body
     html: `
@@ -102,8 +105,10 @@ export const nodeMailer = async ({
 				<td bgcolor="#426899" align="center" style="padding: 0px 10px 0px 10px;">
 					<table border="0" cellpadding="0" cellspacing="0" width="480" >
 						<tr>
+
 							<td bgcolor="#ffffff" align="left" valign="top" style="padding: 30px 30px 20px 30px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; line-height: 48px;">
-								<h1 style="font-size: 32px; font-weight: 400; margin: 0;">Thank you for your Order!</h1>
+							<p style="font-size: 28px; font-weight: 400; margin: 0;">Hi, ${name}</p>
+                <p style="font-size: 29px; font-weight: 400; margin: 0;">Thank you for your Order!</p>	
 							</td>
 						</tr>
 					</table>
@@ -120,20 +125,20 @@ export const nodeMailer = async ({
                       <p>Order no. ${orderNumber}</p>
                     </td>
                   </tr>
-									${table.join()}
-                    <tr style="border-top: 0.5px solid grey;">
-										<th align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px; ">Subtotal</th>
-										<td align="left" valign="top" style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">$ ${total.toFixed(
+									${table.join("")}
+                    <tr style="background-color: antiquewhite;">
+										<th align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px; border-top: 3.5px solid grey; padding-top: 10px; ">Subtotal</th>
+										<td align="left" valign="top" style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px; border-top: 3.5px solid grey; padding-top: 10px;">$ ${total.toFixed(
                       2
                     )}</td>
 									</tr>
-                   <tr>
+                   <tr style="background-color: antiquewhite;">
 										<th align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">HST</th>
 										<td align="left" valign="top" style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">$ ${(
                       total * 0.13
                     ).toFixed(2)}</td>
 									</tr>
-                   <tr>
+                   <tr style="background-color: antiquewhite;">
 										<th align="left" valign="top" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 600; line-height: 25px;">Total</th>
 										<td align="left" valign="top" style="padding-left:15px;padding-right:30px;padding-bottom:10px;font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 600; line-height: 25px;">$ ${(
                       total * 1.13
