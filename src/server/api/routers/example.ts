@@ -111,14 +111,16 @@ export const exampleRouter = createTRPCRouter({
       })
     )
     .query(async ({ input, ctx }) => {
+      console.log(
+        "🚀 ~ file: example.ts:128 ~ .query ~ input:Date",
+        new Date(input.date)
+      );
       const data = await ctx.prisma.order.findMany({
         include: {
           payment_ref: true,
         },
         where: {
-          date: {
-            equals: new Date(input.date),
-          },
+          date: new Date(input.date),
         },
       });
       console.log("🚀 ~ file: example.ts:120 ~ .query ~ data:", data);
