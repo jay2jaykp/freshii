@@ -1,7 +1,11 @@
 import { z } from "zod";
 import { nodeMailer } from "../../../utils/nodemailer";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  publicProcedure,
+  protectedProcedure,
+} from "~/server/api/trpc";
 
 export const exampleRouter = createTRPCRouter({
   sendEmail: publicProcedure
@@ -100,14 +104,14 @@ export const exampleRouter = createTRPCRouter({
       }
     }),
 
-  getAllOrders: publicProcedure
+  getAllOrders: protectedProcedure
     .input(
       z.object({
         date: z.string(),
       })
     )
-    .query(({ input, ctx }) => {
-      return ctx.prisma.order.findMany({
+    .query(async ({ input, ctx }) => {
+      const data = await ctx.prisma.order.findMany({
         include: {
           payment_ref: true,
         },
@@ -117,6 +121,8 @@ export const exampleRouter = createTRPCRouter({
           },
         },
       });
+      console.log("🚀 ~ file: example.ts:120 ~ .query ~ data:", data);
+      return data;
     }),
 
   // emailTest: publicProcedure.query(async () => {
