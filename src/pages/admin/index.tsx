@@ -42,15 +42,15 @@ const Admin: NextPage = () => {
           </div>
           {orders.data && (
             <div className="overflow-x-auto">
-              <table className="table-compact table w-full">
+              <table className="table-compact mx-auto table w-3/4">
                 <thead>
                   <tr>
                     <th></th>
                     <th>Name</th>
-                    <th>Email</th>
+                    {/* <th>Email</th> */}
                     <th>Dish</th>
                     <th>Protein</th>
-                    <th>Payment ID</th>
+                    {/* <th>Payment ID</th> */}
                     <th>Date</th>
                   </tr>
                 </thead>
@@ -59,10 +59,10 @@ const Admin: NextPage = () => {
                     <tr key={order.id}>
                       <th>{index + 1}</th>
                       <td>{order.payment_ref.name}</td>
-                      <td>{order.payment_ref.email}</td>
+                      {/* <td>{order.payment_ref.email}</td> */}
                       <td>{order.dish}</td>
                       <td>{order.protein}</td>
-                      <td>{order.payment_id}</td>
+                      {/* <td>{order.payment_id}</td> */}
                       <td>{order.date.toDateString()}</td>
                     </tr>
                   ))}
