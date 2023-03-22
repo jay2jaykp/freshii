@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { Navbar } from "~/components/Navbar";
 import { api } from "~/utils/api";
-import { dates } from "../../data/index";
+import { allDates, dates } from "../../data/index";
 
 const Admin: NextPage = () => {
   const [selectedDate, setSelectedDate] = useState<string>(dates[0] || "");
@@ -33,7 +33,7 @@ const Admin: NextPage = () => {
               <option disabled selected>
                 Select Date
               </option>
-              {dates.map((date) => (
+              {allDates.map((date) => (
                 <option key={date} value={date}>
                   {new Date(date).toDateString()}
                 </option>
