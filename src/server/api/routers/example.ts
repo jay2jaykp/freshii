@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { nodeMailer } from "../../../utils/nodemailer";
+import { dates } from "../../../data/index";
 
 import {
   createTRPCRouter,
@@ -115,22 +116,10 @@ export const exampleRouter = createTRPCRouter({
         include: {
           payment_ref: true,
         },
-        where: {
-          date: {
-            equals: new Date(input.date),
-          },
-        },
       });
-      console.log("🚀 ~ file: example.ts:120 ~ .query ~ data:", data);
-      return data;
-    }),
 
-  // emailTest: publicProcedure.query(async () => {
-  //   await nodeMailer({
-  //     buyersEmail: "jay2jaykp@gmail.com",
-  //     total: 2,
-  //     orderNumber: "13123232",
-  //     orders: [],
-  //   });
-  // }),
+      return data.filter(
+        (e) => e.date.toDateString() === new Date(input.date).toDateString()
+      );
+    }),
 });
