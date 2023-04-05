@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { Navbar } from "~/components/Navbar";
 import { api } from "~/utils/api";
-import { allDates, dates } from "../../data/index";
+import { allDates, dates, dishes } from "../../data/index";
 
 const Admin: NextPage = () => {
   const [selectedDate, setSelectedDate] = useState<string>(dates[0] || "");
@@ -60,7 +60,12 @@ const Admin: NextPage = () => {
                       <th>{index + 1}</th>
                       <td>{order.payment_ref.name}</td>
                       {/* <td>{order.payment_ref.email}</td> */}
-                      <td>{order.dish}</td>
+                      <td>
+                        {order.dish}{" "}
+                        <span className="font-semibold">
+                          {dishes.filter((e) => e.name === order.dish)[0]?.type}
+                        </span>
+                      </td>
                       <td>{order.protein}</td>
                       {/* <td>{order.payment_id}</td> */}
                       <td>{order.date.toDateString()}</td>

@@ -24,31 +24,40 @@ export const StudentInformation: React.FC = () => {
     toggleState(isFormValid());
   }, [toggleState, isFormValid]);
   return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-      <div>
-        <label className="label">
-          <span className="label-text">Student Name</span>
-        </label>
-        <input
-          type="text"
-          placeholder="Type here"
-          value={name}
-          onChange={(e) => updateInformation("name", e.target.value)}
-          className="input-bordered input w-full max-w-xs "
-        />
+    <>
+      <div className="rounded-xl border border-dashed border-black p-2 text-center">
+        <h2 className="text-2xl">
+          Welcome to Freshii School Order Portal - Kanata North
+        </h2>
+        <p className="text-xl text-primary">Glen Cairn Public School</p>
+        <p>182 Morrena Rd, Kanata, ON K2L 1E1</p>
       </div>
-      <div>
-        <label className="label">
-          <span className="label-text">Email</span>
-        </label>
-        <input
-          type="email"
-          placeholder="Type here"
-          value={email}
-          onChange={(e) => updateInformation("email", e.target.value)}
-          className="input-bordered input w-full max-w-xs"
-        />
+      <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+        <div>
+          <label className="label">
+            <span className="label-text">Student Name</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Type here"
+            value={name}
+            onChange={(e) => updateInformation("name", e.target.value)}
+            className="input-bordered input w-full max-w-xs "
+          />
+        </div>
+        <div>
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input
+            type="email"
+            placeholder="Type here"
+            value={email}
+            onChange={(e) => updateInformation("email", e.target.value)}
+            className="input-bordered input w-full max-w-xs"
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
